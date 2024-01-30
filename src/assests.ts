@@ -15,3 +15,11 @@ export const input = (msg: string):any => {
         });
     });
 };
+
+export const gapPrint = (funcs: Function | Array<Function>): void => {
+    console.log('')
+    if (Array.isArray(funcs)){
+        funcs.forEach( func => func() )
+    } else { funcs() };
+    console.log('')
+};
