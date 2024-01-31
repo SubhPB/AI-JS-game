@@ -1,18 +1,19 @@
 /* -- Byimaan --  */
 
 import { TicTacToe } from "./game";
-import { HumanPlayer, ComputerPlayer, Player } from "./player";
+import { HumanPlayer, ComputerPlayer, AIplayer } from "./player";
 import { gapPrint } from "./assests";
 
 async function battleGround(){
     const humanPlayer = new HumanPlayer('X');
-    const computerPlayer = new ComputerPlayer('O');
+    //const computerPlayer = new ComputerPlayer('O');
+    const oppoentPlayer = new AIplayer('O');
     const game = new TicTacToe();
 
     gapPrint(() => game.printBoard(true));
     console.log(`TicTacToe: Enter 'quit' to quit the game.`)
 
-    async function switchTurns(currPlayer:  HumanPlayer | ComputerPlayer ){
+    async function switchTurns(currPlayer:  HumanPlayer | ComputerPlayer | AIplayer){
 
         if (game.countEmptySlots() <= 0 || game.gameIsOver){
 
@@ -35,7 +36,7 @@ async function battleGround(){
 
         }).finally( () => {
 
-            const otherPlayer = currPlayer === humanPlayer ? computerPlayer : humanPlayer;
+            const otherPlayer = currPlayer === humanPlayer ? oppoentPlayer : humanPlayer;
             switchTurns(otherPlayer);
 
         });

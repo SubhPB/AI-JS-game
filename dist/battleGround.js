@@ -16,7 +16,8 @@ const assests_1 = require("./assests");
 function battleGround() {
     return __awaiter(this, void 0, void 0, function* () {
         const humanPlayer = new player_1.HumanPlayer('X');
-        const computerPlayer = new player_1.ComputerPlayer('O');
+        //const computerPlayer = new ComputerPlayer('O');
+        const oppoentPlayer = new player_1.AIplayer('O');
         const game = new game_1.TicTacToe();
         (0, assests_1.gapPrint)(() => game.printBoard(true));
         console.log(`TicTacToe: Enter 'quit' to quit the game.`);
@@ -38,7 +39,7 @@ function battleGround() {
                     game.gameIsOver = true;
                     (0, assests_1.gapPrint)(() => console.log('TicTacToe:  Quitting the game... '));
                 }).finally(() => {
-                    const otherPlayer = currPlayer === humanPlayer ? computerPlayer : humanPlayer;
+                    const otherPlayer = currPlayer === humanPlayer ? oppoentPlayer : humanPlayer;
                     switchTurns(otherPlayer);
                 });
             });
