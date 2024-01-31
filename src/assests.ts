@@ -9,15 +9,16 @@ export const input = (msg: string):any => {
             output: process.stdout
         });
 
+        console.log('');
         rl.question(msg, (ans:string)  => {
             rl.close();
-            resolve(ans);
+            resolve(ans.trim());
         });
     });
 };
 
 export const gapPrint = (funcs: Function | Array<Function>): void => {
-    console.log('')
+    // console.log('')
     if (Array.isArray(funcs)){
         funcs.forEach( func => func() )
     } else { funcs() };
