@@ -25,7 +25,7 @@ class TicTacToe {
         });
     }
     ;
-    checkWinner(square, letter) {
+    checkWinner(square, letter, silent = false) {
         const _checkRow = () => {
             const rowIndex = Math.floor(square / 3);
             const isWinner = this.board[rowIndex].every(sq => sq === letter);
@@ -44,7 +44,8 @@ class TicTacToe {
         this.gameIsOver = _checkRow() || _checkCol() || _checkDia();
         if (this.gameIsOver) {
             this.winner = letter;
-            (0, assests_1.gapPrint)(() => console.log(`GameOver: -- Congratulations!, player '${this.winner}' has won the match!. -- `));
+            if (!silent)
+                (0, assests_1.gapPrint)(() => console.log(`GameOver: -- Congratulations!, player '${this.winner}' has won the match!. -- `));
         }
         ;
         return this.gameIsOver;
@@ -70,27 +71,22 @@ class TicTacToe {
         return availableSlots.filter(slot => slot !== null);
     }
     ;
-    acquireSlot(square, letter) {
+    acquireSlot(square, letter, silent = false) {
         const row = Math.floor(square / 3);
         const col = square % 3;
         if (this.getAvailableMoves().includes(square)) {
             this.board[row][col] = letter;
-            this.checkWinner(square, letter);
+            this.checkWinner(square, letter, silent);
             return true;
         }
         return false;
     }
     ;
+    undoMove(square) {
+        const row = Math.floor(square / 3);
+        const col = square % 3;
+        this.board[row][col] = ' ';
+    }
 }
 exports.TicTacToe = TicTacToe;
 ;
-// const game = new TicTacToe();
-// game.board[0][2] = 'X'
-// game.board[1][1] = 'X'
-// game.board[2][0] = 'X'
-// console.log('is game over ? ',game.gameIsOver)
-// game.checkWinner(2,'X')
-// game.printBoard()
-// console.log('')
-// console.log(game.getAvailableMoves())
-// console.log('is game over ? ',game.gameIsOver)

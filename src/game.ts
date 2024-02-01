@@ -1,6 +1,5 @@
 /* -- Byimaan -- */
 
-import { input } from "./assests";
 import { gapPrint } from "./assests";
 
 interface Game {
@@ -39,7 +38,7 @@ export class TicTacToe implements Game{
         });
     };
 
-    checkWinner(square: number, letter: string){
+    checkWinner(square: number, letter: string,  silent: boolean = false){
 
         const _checkRow = () => {
             const rowIndex = Math.floor(square/3);
@@ -62,7 +61,7 @@ export class TicTacToe implements Game{
         this.gameIsOver = _checkRow() || _checkCol() || _checkDia();
         if (this.gameIsOver) {
             this.winner = letter;
-            gapPrint(()=>console.log(`GameOver: -- Congratulations!, player '${this.winner}' has won the match!. -- `));
+            if (!silent) gapPrint(()=>console.log(`GameOver: -- Congratulations!, player '${this.winner}' has won the match!. -- `));
         };
 
         return this.gameIsOver;
@@ -88,27 +87,22 @@ export class TicTacToe implements Game{
         return availableSlots.filter( slot => slot !== null);
     };
 
-    acquireSlot(square:number, letter: string){
+    acquireSlot(square:number, letter: string, silent: boolean = false){
         const row = Math.floor(square/3);
         const col = square % 3;
         if (this.getAvailableMoves().includes(square)){
             this.board[row][col] = letter;
-            this.checkWinner(square,letter)
+            this.checkWinner(square,letter, silent)
             return true;
         }
         return false;
     };
 
-};
+    undoMove(square: number){
+        const row = Math.floor(square/3);
+        const col = square % 3;
+        this.board[row][col] = ' ';
+    }
 
-// const game = new TicTacToe();
-// game.board[0][2] = 'X'
-// game.board[1][1] = 'X'
-// game.board[2][0] = 'X'
-// console.log('is game over ? ',game.gameIsOver)
-// game.checkWinner(2,'X')
-// game.printBoard()
-// console.log('')
-// console.log(game.getAvailableMoves())
-// console.log('is game over ? ',game.gameIsOver)
+};
 
